@@ -179,14 +179,34 @@ class Render(object):
                     limit += 1
 
     ##  this fucntion draws a polygon with the given coordinates
-    def glDrawPolygon(self, coordinates):
-        length = len(coordinates)
+    def glDrawPolygon(self, poly):
+        length = len(poly)
 
         for i in range(length):
-            p0 = coordinates[i]
-            p1 = coordinates[(i + 1) % length]
+            p0 = poly[i]
+            p1 = poly[(i + 1) % length]
 
             self.glLine_coordinates(p0[0], p0[1], p1[0], p1[1])
+
+            for x in range(self.width):
+                for y in range(self.height):
+                    if self.evenOdd(poly, x, y):
+                        self.glVertex_coordinates(x, y)
+
+    ##  this function checks if a point is inside the polygon
+    ##  code used in this function is in https://en.wikipedia.org/wiki/Even%E2%80%93odd_rule#Implementation
+    def evenOdd(self, poly, x, y):
+        length = len(poly)
+        i = 0
+        j = 0
+        j = length - 1
+        c = False
+
+        for i in range(length):
+            if ((poly[i][1] > y) != (poly[j][1] > y)) and (x < poly[i][0] + (poly[j][0] - poly[i][0]) * (y - poly[i][1]) / (poly[j][1] - poly[i][1])):
+                c = not c
+            j = i
+        return c
 
     ##  this function is used to write the image into the file, and saves it
     def glFinish(self, filename):

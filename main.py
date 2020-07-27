@@ -11,7 +11,7 @@ from gl import Render, color
 
 filename = "output.bmp"
 
-render = Render(1000, 1000)
+render = Render(800, 700)
 
 p1 = [(165, 380), (185, 360), (180, 330),
         (207, 345), (233, 330), (230, 360),
@@ -33,10 +33,28 @@ p4 = [(413, 177), (448, 159), (502, 88),
 p5 = [(682, 175), (708, 120), (735, 148),
     (739, 170)]
 
+print("A continuación se graficarán y se llenarán polígonos ")
+
+enter = input("Apache ENTER para continuar...")
+
+##  changes the color to yellow
+render.glColor(1, 1, 0)
 render.glDrawPolygon(p1)
+
+##  changes the color to blue
+render.glColor(0, 0, 1)
 render.glDrawPolygon(p2)
+
+##  changes the color to green
+render.glColor(0, 1, 0)
 render.glDrawPolygon(p3)
+
+##  changes the color to red
+render.glColor(1, 0, 0)
 render.glDrawPolygon(p4)
+
+##  changes the color to white
+render.glColor(1, 1, 1)
 render.glDrawPolygon(p5)
 
 render.glFinish(filename)
